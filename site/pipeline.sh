@@ -49,6 +49,9 @@ ansible-playbook -i ansible/inventory.ini ansible/deploy.yml
 #docker rmi $IMAGE_NAME:$TAG || true
 #docker rmi $IMAGE_NAME:latest || true
 
+echo "docker.hub https://hub.docker.com/repository/docker/ahmedz9/deploy-site/tags"
+
+
 echo "you can access the site at http://44.222.155.138:$PORT"
 
 # ============================= END OF PIPELINE ========================== #
