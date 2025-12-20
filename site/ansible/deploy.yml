@@ -1,0 +1,34 @@
+- name: Deploy Docker App
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Pull image
+      command: docker pull ahmedz9/deploy-site:latest
+
+    - name: Run container
+      command: >
+        docker run -d --rm
+        -p 8080:80
+        --name prod-app
+        ahmedz9/deploy-site:latest
+
+    - name: Smoke test (basic curl)
+      command: curl -f http://localhost:8080
+      register: smoke
+      ignore_errors: yes
+
+    - name: Fail if smoke test failed
+      fail:
+        msg: "Application is not responding"
+      when: smoke.rc != 0
+
+    - name: Application deployed successfully
+      debug:
+        msg: "Application deployed and running successfully."
+      when: smoke.rc == 0
