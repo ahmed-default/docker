@@ -13,6 +13,11 @@
         name: prod-app
         state: absent
 
+    - name: Docker login
+      community.docker.docker_login:
+        username: "ahmedz9"
+        password: "********************************"
+
     - name: Pull image
       command: docker pull ahmedz9/deploy-site:latest
 

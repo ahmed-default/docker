@@ -35,6 +35,12 @@ echo "Smoke test passed"
 
 docker stop $CONTAINER_NAME
 
+
+# Docker login non-interactive
+export DOCKER_USERNAME="ahmedz9"
+export DOCKER_TOKEN="*********************************"
+echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 echo "Pushing image..."
 docker push $IMAGE_NAME:$TAG
 docker push $IMAGE_NAME:latest
